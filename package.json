@@ -1,6 +1,6 @@
 {
   "name": "react-deep-link",
-  "version": "1.0.14",
+  "version": "1.0.17",
   "description": "A React-compatible deep linking library for cross-domain UI state sharing.",
   "main": "build/index.js",
   "types": "build/index.d.ts",

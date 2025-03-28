@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useLocation } from "react-router-dom";
 
 const SECRET = "ALVBSLRGIBLSIUHRG395HGO4539RUFSIEVUGNBS4L8HGIWUN";
 
@@ -22,7 +21,7 @@ export const decryptState = (encoded: string): Record<string, any> => {
   return JSON.parse(decrypted);
 };
 
-const generate = ({
+export const generateDeepLink = ({
   baseUrl,
   route,
   params,
@@ -78,17 +77,9 @@ export const parseDeepLink = (
   return result;
 };
 
-const use = () => {
-  const location = useLocation();
-
+export const useDeepLink = () => {
   return useMemo(() => {
-    return parseDeepLink(new URLSearchParams(location.search));
-  }, [location.search]);
+    const params = new URLSearchParams(window.location.search);
+    return parseDeepLink(params);
+  }, [window.location.search]);
 };
-
-export const link = {
-  generate,
-  use,
-};
-
-export default link;
