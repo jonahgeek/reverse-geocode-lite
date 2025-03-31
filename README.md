@@ -1,83 +1,113 @@
-# 📡 react-deep-link
+# 🌍 reverse-geocode-lite
 
-A lightweight React-compatible deep linking library that enables you to share, persist, and restore complex UI states (like modals, drawers, tabs, and more) across the same or different domains.
+> Lightweight, TypeScript-based reverse geocoder using OpenStreetMap's Nominatim API.
 
----
-
-## ✨ Features
-
-- Generate deep links with route, query, and encrypted UI state
-- Parse deep links and use them via a simple React hook
-- Cross-domain compatible
-- Optional fallback for corrupt/missing state
+Convert latitude and longitude into a human-readable address — with minimal setup, zero dependencies on Google Maps, and full open-source freedom.
 
 ---
 
-## 🚀 Installation
+## 🚀 Features
+
+- 🌐 Uses free [OpenStreetMap Nominatim](https://nominatim.openstreetmap.org/)
+- 📦 Lightweight and dependency-free (except `node-fetch`)
+- 🔒 Type-safe (written in TypeScript)
+- ✅ Tested with Jest
+- 💥 ESM-compatible
+
+---
+
+## 📦 Installation
 
 ```bash
-npm install react-deep-link
+npm install reverse-geocode-lite
+```
+
+or with yarn:
+
+```bash
+yarn add reverse-geocode-lite
 ```
 
 ---
 
-## 🧱 Usage
+## 🔧 Usage
 
-### 1. Generating a Link
+### TypeScript / ES Modules
 
 ```ts
-import { generateDeepLink } from "react-deep-link";
+import { reverseGeocode } from 'reverse-geocode-lite';
 
-const url = generateDeepLink({
-  baseUrl: "https://yourdomain.com",
-  route: "/dashboard",
-  params: { modal: "true" },
-  state: { userId: "123", drawerOpen: true },
-});
+const getAddress = async () => {
+  const address = await reverseGeocode(48.8584, 2.2945); // Eiffel Tower
+  console.log(address);
+};
 
-// Outputs something like:
-// https://yourdomain.com/dashboard?modal=true&state=encryptedPayload
+getAddress();
 ```
 
-### 2. Parsing and Using in React
+### Node.js (CJS)
 
-```tsx
-import { useDeepLink } from "react-deep-link";
+```js
+const { reverseGeocode } = require('reverse-geocode-lite');
 
-function MyComponent() {
-  const { state, fallback } = useDeepLink();
-
-  if (fallback) return <div>Invalid or expired link</div>;
-
-  return <pre>{JSON.stringify(state)}</pre>;
-}
+reverseGeocode(40.7128, -74.006).then(console.log); // New York
 ```
 
 ---
 
-## 🔐 Security
+## 📘 API
 
-State passed in links is encrypted using a simple XOR mechanism. You can replace this with a more secure method (e.g., AES) using the `utils.ts` file.
+### `reverseGeocode(lat: number, lng: number): Promise<string | null>`
 
-> ❗ Avoid sharing sensitive data (passwords, tokens) in URLs.
+| Param | Type     | Description                  |
+|-------|----------|------------------------------|
+| lat   | `number` | Latitude                     |
+| lng   | `number` | Longitude                    |
+
+Returns a human-readable address (`string`), or `null` if not found or if an error occurred.
 
 ---
 
-## 📦 Scripts
+## 🧪 Testing
 
-- `npm run build` – Build the library
-- `npm run dev` – Watch mode for dev
-- `npm run lint` – Lint your code
-- `npm run test` – Run unit tests
+Run unit tests using:
+
+```bash
+npm test
+```
+
+Includes mocked responses for:
+- Successful address lookup
+- No address found
+- Network failure
+- Server errors
+
+---
+
+## ⚠️ Notes
+
+- This package uses the **public OpenStreetMap Nominatim API**, which has strict [usage policies](https://operations.osmfoundation.org/policies/nominatim/).
+- You **must** include a valid `User-Agent` header in production requests, or risk getting blocked.
 
 ---
 
 ## 📄 License
 
-MIT
+MIT © [Jonathan Mwebaze](https://ashitacreatives.com)
 
 ---
 
-## ✍️ Author
+## 🙌 Contributing
 
-Jonathan Mwebaze
+1. Fork this repo
+2. Create your feature branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -am 'Add feature'`
+4. Push to the branch: `git push origin feature/your-feature`
+5. Submit a pull request
+
+---
+
+## 🧠 Acknowledgments
+
+- Built on [OpenStreetMap](https://www.openstreetmap.org/)
+- Powered by [Nominatim](https://nominatim.org/)
