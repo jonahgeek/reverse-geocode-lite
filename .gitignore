@@ -7,7 +7,6 @@ dist/
 
 # Dependency lock files
 yarn.lock
-package-lock.json
 
 # IDE and editor files
 .vscode/

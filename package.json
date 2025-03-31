@@ -19,16 +19,18 @@
     "README.md"
   ],
   "keywords": [
-    "react",
-    "deep-link",
-    "cross-domain",
-    "routing",
-    "state-management"
+    "reverse",
+    "geocode",
+    "geocoding",
+    "openstreetmap",
+    "location",
+    "coordinates",
+    "nominatim"
   ],
   "author": "Jonahgeek",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jonahgeek/react-deep-link.git"
+    "url": "https://github.com/jonahgeek/reverse-geocode-lite.git"
   },
   "license": "MIT",
   "dependencies": {
